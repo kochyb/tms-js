@@ -1,39 +1,59 @@
-const data = [
-    {
-        firstName: 'Ashton',
-        lastName: 'Kutcher',
-        age: 40,
-    },
-    {
-        firstName: 'Bradley',
-        lastName: 'Pitt',
-        age: 54,
-    },
-    {
-        firstName: 'Hannah',
-        lastName: 'Dakota',
-        age: 24,
-    },
-];
+let text1 = document.getElementById('text1');
+let text2 = document.getElementById('text2');
+let text3 = document.getElementById('text3');
 
-
-let outputName;
-function searchFun() {
-    let fname = document.getElementById('first_name').value;
-    for (let i = 0; i < data.length; i++) {
-        if (data[i].firstName.toUpperCase() == fname.toUpperCase()) {
-            outputName = 'Имя: ' + data[i].firstName + '<br>Фамилия: ' + data[i].lastName + '<br>Возраст: ' + data[i].age;
-            result.innerHTML = outputName;
-            console.log(outputName);
-            break
+const colors = {
+    data: ['magenta', 'cyan', 'firebrick', 'springgreen', 'skyblue'],
+    [Symbol.iterator]() {
+        return this;
+    },
+    next(id) {
+        if (this[id] === undefined) {
+            this[id] = 0;
         }
-    else {
-            result.innerHTML = 'No results found for your request';
-    }
-    }
-}
+        if (this[id] <= this.data.length) {
+            return {
+                value: this.data[this[id]++],
+                done: false,
+            }
+        } else {
+            this[id] = 0;
+            return {
+                done: true,
+            }
+        }
+    },
+};
 
-document.getElementById('search').addEventListener('click', searchFun);
+const changeStyle = id => event => {
+    event.target.style.color = colors.next(id).value;
+};
 
 
+text1.addEventListener('click', changeStyle(Symbol()));
+text2.addEventListener('click', changeStyle(Symbol()));
+text3.addEventListener('click', changeStyle(Symbol()));
 
+
+//////////////////////////////////////////////////////////////////////
+
+const data = [4, 56, 33, 42, 15];
+
+function bubbleSort () {
+    for (let i = 0; i < data.length - 1; i++) {
+        let f = 0;
+            for (let i = 0; i < data.length - 1; i++ ) {
+                if (data[i] > data[i + 1]) {
+                    let arr = data[i];
+                    data[i] = data[i + 1];
+                    data[i + 1] = arr;
+                    f++;
+                }
+            }
+                if(f === 0) break;
+            }
+        return data;
+    };
+
+console.log(data);
+console.log(bubbleSort());
